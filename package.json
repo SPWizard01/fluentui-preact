@@ -24,18 +24,20 @@
   },
   "scripts": {
     "build": "bun run build.ts",
-    "serve": "bun run serve.ts"
+    "serve": "bun run serve.ts",
+    "nativeserve": "bun run nativeserve.ts"
   },
   "devDependencies": {
-    "@fluentui/react-icons": "^2.0.271",
+    "@fluentui/react-icons": "^2.0.279",
     "@fluentui/tokens": "1.0.0-alpha.21",
-    "@fluentui/web-components": "3.0.0-beta.77",
-    "@types/bun": "latest",
-    "bun-dev-server": "^0.8.0",
+    "@fluentui/web-components": "3.0.0-beta.84",
+    "@microsoft/fast-element": "^2.1.0",
+    "@types/bun": "^1.2.5",
+    "bun-dev-server": "^0.9.7",
     "picocolors": "^1.1.1",
-    "preact": "^10.25.4"
+    "preact": "^10.26.4"
   },
   "peerDependencies": {
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   }
 }

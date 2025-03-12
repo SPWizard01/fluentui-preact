@@ -7,8 +7,13 @@ import {
 import { forwardRef } from "preact/compat";
 import type { FluentProps } from "../utility/helpertypes";
 
-export interface AccordionProps extends FluentProps<FluentElement> {
-  expandmode?: AccordionExpandMode;
+export interface AccordionProps extends FluentProps<FluentElement, "heading"> {
+  /**
+   * Controls the expand mode of the Accordion, either allowing single or multiple item expansion.
+   * `single` `multi`
+   * @default `multi`
+   */
+  "expand-mode"?: AccordionExpandMode;
 }
 
 declare module "preact" {

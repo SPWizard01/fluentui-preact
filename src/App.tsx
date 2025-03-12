@@ -5,11 +5,15 @@ import { DialogBody } from "./components/DialogBody";
 import { ThemeProvider } from "./components/ThemeProvider";
 import type { Dialog as FluentDialog } from "@fluentui/web-components";
 import { useRef } from "preact/hooks";
+import { Button } from "./components/Button";
+import { webLightTheme, webDarkTheme } from "@fluentui/tokens";
+import { Accordion } from "./components/Accordion";
+import { AccordionItem } from "./components/AccordionItem";
 
 export function App() {
   const dref = useRef<FluentDialog>(null);
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={webDarkTheme}>
       <Checkbox
         onClick={() => {
           if (dref.current) {
@@ -20,6 +24,16 @@ export function App() {
       >
         Click me
       </Checkbox>
+      <Accordion expand-mode="single">
+        <AccordionItem disabled={true}>
+          <div slot="heading">Heading</div>
+          <div>Content</div>
+        </AccordionItem>
+        <AccordionItem>
+          <div slot="heading">Heading2</div>
+          <div>Content</div>
+        </AccordionItem>
+      </Accordion>
       <Dialog ref={dref} type="modal">
         <DialogBody>
           <div>gtg</div>

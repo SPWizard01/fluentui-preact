@@ -8,7 +8,8 @@ import {
 import { forwardRef } from "preact/compat";
 import type { FluentProps } from "../utility/helpertypes";
 
-export interface CheckboxProps extends FluentProps<FluentElement> {
+export interface CheckboxProps
+  extends FluentProps<FluentElement, "start" | "end"> {
   disabled?: boolean;
   autofocus?: boolean;
   checked?: boolean;
@@ -30,6 +31,8 @@ declare module "preact" {
 
 CheckboxDefinition.define(FluentDesignSystem.registry);
 
-export const Checkbox = forwardRef<FluentElement, CheckboxProps>((props, ref) => {
-  return <fluent-checkbox {...props} ref={ref} />;
-});
+export const Checkbox = forwardRef<FluentElement, CheckboxProps>(
+  (props, ref) => {
+    return <fluent-checkbox {...props} ref={ref} />;
+  }
+);
