@@ -10,10 +10,24 @@ import {
 import { forwardRef } from "preact/compat";
 import type { FluentProps } from "../utility/helpertypes";
 
-export interface BadgeProps extends FluentProps<FluentElement> {
+export interface BadgeProps extends FluentProps<FluentElement, "start" | "end"> {
+  /**
+   * Sets the appearance of the badge to one of the predefined styles
+   * @type `filled` | `outline` | `ghost` | `tint`
+   * @default filled
+   */
   appearance?: BadgeAppearance;
+  /**
+   * Sets the color of the badge to one of the predefined colors
+   */
   color?: BadgeColor;
+  /**
+   * Sets the shape of the badge to one of the predefined shapes
+   */
   shape?: BadgeShape;
+  /**
+   * Sets the size of the badge to one of the predefined sizes
+   */
   size?: BadgeSize;
 }
 
