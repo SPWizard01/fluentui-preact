@@ -2,35 +2,27 @@ import {
   MenuButtonDefinition,
   FluentDesignSystem,
   type MenuButton as FluentElement,
-  MenuButtonAppearance,
-  type MenuButtonOptions,
-  MenuButtonSize,
-  MenuButtonShape,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface MenuButtonProps extends FluentProps<FluentElement> {
-  disabled?: boolean;
-  disabledFocusable?: boolean;
-  appearance?: MenuButtonAppearance;
-  iconOnly?: boolean;
-  size?: MenuButtonSize;
-  shape?: MenuButtonShape;
-  value?: string;
+export type MenuButtonElement = FluentElement & WithChildrenAndSlots;
+export interface MenuButtonElementProps extends Partial<MenuButtonElement> {
+  ref?: Ref<MenuButtonElement>;
 }
 
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-menu-button": MenuButtonProps;
+      "fluent-menu-button": MenuButtonElementProps;
     }
   }
 }
 
 MenuButtonDefinition.define(FluentDesignSystem.registry);
 
-export const MenuButton = forwardRef<FluentElement, MenuButtonProps>(
+export const MenuButton = forwardRef<MenuButtonElement, MenuButtonElementProps>(
   (props, ref) => {
     return <fluent-menu-button {...props} ref={ref} />;
   }

@@ -2,29 +2,26 @@ import {
   FluentDesignSystem,
   MenuItemDefinition as FluentElementDefinition,
   type MenuItem as FluentElement,
-  MenuItemRole,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface MenuItemProps extends FluentProps<FluentElement> {
-  disabled?: boolean;
-  role?: MenuItemRole;
-  checked?: boolean;
-  hidden?: boolean;
+export type MenuItemElement = FluentElement & WithChildrenAndSlots<"">;
+export interface MenuItemElementProps extends Partial<MenuItemElement> {
+  ref?: Ref<MenuItemElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-menu-item": MenuItemProps;
+      "fluent-menu-item": MenuItemElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const MenuItem = forwardRef<FluentElement, MenuItemProps>(
+export const MenuItem = forwardRef<MenuItemElement, MenuItemElementProps>(
   (props, ref) => {
     return <fluent-menu-item {...props} ref={ref} />;
   }

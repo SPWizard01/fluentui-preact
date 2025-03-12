@@ -1,32 +1,28 @@
 import {
   FluentDesignSystem,
   TablistDefinition as FluentElementDefinition,
-  TablistAppearance,
-  TablistOrientation,
-  TablistSize,
   type Tablist as FluentElement,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface TablistProps extends FluentProps<FluentElement> {
-  activeId?: string;
-  disabled?: boolean;
-  orientation?: TablistOrientation;
-  appearance?: TablistAppearance;
-  size?: TablistSize;
+export type TablistElement = FluentElement & WithChildrenAndSlots<"">;
+export interface TablistElementProps extends Partial<TablistElement> {
+  ref?: Ref<TablistElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-tablist": TablistProps;
+      "fluent-tablist": TablistElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const Tablist = forwardRef<FluentElement, TablistProps>((props, ref) => {
-  return <fluent-tablist {...props} ref={ref} />;
-});
+export const Tablist = forwardRef<TablistElement, TablistElementProps>(
+  (props, ref) => {
+    return <fluent-tablist {...props} ref={ref} />;
+  }
+);

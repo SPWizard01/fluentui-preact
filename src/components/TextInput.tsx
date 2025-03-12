@@ -1,43 +1,28 @@
 import {
   FluentDesignSystem,
   TextInputDefinition as FluentElementDefinition,
-  TextInputAppearance,
-  TextInputType,
   type TextInput as FluentElement,
 } from "@fluentui/web-components";
+
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface TextInputProps extends FluentProps<FluentElement> {
-  appearance?: TextInputAppearance;
-  autocomplete?: string;
-  autofocus?: boolean;
-  autoResize?: boolean;
-  block?: boolean;
-  dirName?: string;
-  disabled?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  name?: string;
-  pattern?: string;
-  placeholder?: string;
-  readOnly?: boolean;
-  required?: boolean;
-  type?: TextInputType;
-  value?: any;
+export type TextInputElement = FluentElement & WithChildrenAndSlots<"">;
+export interface TextInputElementProps extends Partial<TextInputElement> {
+  ref?: Ref<TextInputElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-text-input": TextInputProps;
+      "fluent-text-input": TextInputElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const TextInput = forwardRef<FluentElement, TextInputProps>(
+export const TextInput = forwardRef<TextInputElement, TextInputElementProps>(
   (props, ref) => {
     return <fluent-text-input {...props} ref={ref} />;
   }

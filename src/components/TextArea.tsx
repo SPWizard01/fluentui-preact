@@ -1,45 +1,28 @@
 import {
   FluentDesignSystem,
   TextAreaDefinition as FluentElementDefinition,
-  TextAreaAppearance,
-  TextAreaAutocomplete,
-  TextAreaResize,
-  TextAreaSize,
   type TextArea as FluentElement,
 } from "@fluentui/web-components";
-import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
 
-export interface TextAreaProps extends FluentProps<FluentElement> {
-  appearance?: TextAreaAppearance;
-  autocomplete?: TextAreaAutocomplete;
-  autofocus?: boolean;
-  autoResize?: boolean;
-  block?: boolean;
-  dirName?: string;
-  disabled?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  name?: string;
-  placeholder?: string;
-  readOnly?: boolean;
-  required?: boolean;
-  resize?: TextAreaResize;
-  size?: TextAreaSize;
-  spellcheck?: boolean;
+import { forwardRef } from "preact/compat";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
+
+export type TextAreaElement = FluentElement & WithChildrenAndSlots;
+export interface TextAreaElementProps extends Partial<TextAreaElement> {
+  ref?: Ref<TextAreaElement>;
 }
 
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-textarea": TextAreaProps;
+      "fluent-textarea": TextAreaElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
-
-export const TextArea = forwardRef<FluentElement, TextAreaProps>(
+export const TextArea = forwardRef<TextAreaElement, TextAreaElementProps>(
   (props, ref) => {
     return <fluent-textarea {...props} ref={ref} />;
   }

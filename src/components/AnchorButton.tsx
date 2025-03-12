@@ -2,37 +2,29 @@ import {
   AnchorButtonDefinition,
   FluentDesignSystem,
   type AnchorButton as FluentElement,
-  AnchorButtonAppearance,
-  AnchorTarget,
-  AnchorButtonShape,
-  AnchorButtonSize,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface AnchorButtonProps extends FluentProps<FluentElement> {
-  href?: string;
-  appearance?: AnchorButtonAppearance;
-  shape?: AnchorButtonShape;
-  hreflang?: string;
-  referrerpolicy?: string;
-  rel?: string;
-  type?: string;
-  target?: AnchorTarget;
-  iconOnly?: boolean;
-  size?: AnchorButtonSize;
+export type AmchorButtonElement = FluentElement &
+  WithChildrenAndSlots<"start" | "end">;
+export interface AmchorButtonElementProps extends Partial<AmchorButtonElement> {
+  ref?: Ref<AmchorButtonElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-anchor-button": AnchorButtonProps;
+      "fluent-anchor-button": AmchorButtonElementProps;
     }
   }
 }
 
 AnchorButtonDefinition.define(FluentDesignSystem.registry);
 
-export const AnchorButton = forwardRef<FluentElement, AnchorButtonProps>((props, ref) => {
+export const AnchorButton = forwardRef<
+  AmchorButtonElement,
+  AmchorButtonElementProps
+>((props, ref) => {
   return <fluent-anchor-button {...props} ref={ref} />;
 });

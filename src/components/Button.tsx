@@ -1,34 +1,29 @@
 import {
-  ButtonAppearance,
   ButtonDefinition,
-  ButtonShape,
-  ButtonSize,
+  ButtonType,
   FluentDesignSystem,
   type Button as FluentElement,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface ButtonProps extends FluentProps<FluentElement> {
-  disabled?: boolean;
-  disabledFocusable?: boolean;
-  appearance?: ButtonAppearance;
-  iconOnly?: boolean;
-  size?: ButtonSize;
-  shape?: ButtonShape;
-  value?: string;
+export type ButtonElement = FluentElement & WithChildrenAndSlots<"start" | "end">;
+export interface ButtonElementProps extends Partial<ButtonElement> {
+  ref?: Ref<ButtonElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-button": ButtonProps;
+      "fluent-button": ButtonElementProps;
     }
   }
 }
 
 ButtonDefinition.define(FluentDesignSystem.registry);
 
-export const Button = forwardRef<FluentElement, ButtonProps>((props, ref) => {
-  return <fluent-button {...props} ref={ref} />;
-});
+export const Button = forwardRef<ButtonElement, ButtonElementProps>(
+  (props, ref) => {
+    return <fluent-button {...props} ref={ref} />;
+  }
+);

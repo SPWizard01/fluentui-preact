@@ -4,23 +4,23 @@ import {
   type Radio as FluentElement,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface RadioProps extends FluentProps<FluentElement> {
-  checked?: boolean;
-  disabled?: boolean;
+export type RadioElement = FluentElement & WithChildrenAndSlots<"">;
+export interface RadioElementProps extends Partial<RadioElement> {
+  ref?: Ref<RadioElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-radio": RadioProps;
+      "fluent-radio": RadioElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const Radio = forwardRef<FluentElement, RadioProps>((props, ref) => {
+export const Radio = forwardRef<RadioElement, RadioElementProps>((props, ref) => {
   return <fluent-radio {...props} ref={ref} />;
 });

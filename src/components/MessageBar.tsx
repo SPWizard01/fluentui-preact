@@ -2,29 +2,28 @@ import {
   FluentDesignSystem,
   MessageBarDefinition as FluentElementDefinition,
   type MessageBar as FluentElement,
-  MessageBarIntent,
-  MessageBarShape,
-  MessageBarLayout,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface MessageBarProps extends FluentProps<FluentElement> {
-  intent?: MessageBarIntent;
-  shape?: MessageBarShape;
-  layout?: MessageBarLayout;
+export type MessageBarElement = FluentElement &
+  WithChildrenAndSlots<"icon" | "action" | "dismiss">;
+export interface MessageBarElementProps extends Partial<MessageBarElement> {
+  ref?: Ref<MessageBarElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-message-bar": MessageBarProps;
+      "fluent-message-bar": MessageBarElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const MessageBar = forwardRef<FluentElement, MessageBarProps>((props, ref) => {
-  return <fluent-message-bar {...props} ref={ref} />;
-});
+export const MessageBar = forwardRef<MessageBarElement, MessageBarElementProps>(
+  (props, ref) => {
+    return <fluent-message-bar {...props} ref={ref} />;
+  }
+);

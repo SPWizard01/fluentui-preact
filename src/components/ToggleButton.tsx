@@ -2,35 +2,28 @@ import {
   ToggleButtonDefinition as FluentElementDefinition,
   FluentDesignSystem,
   type ToggleButton as FluentElement,
-  ToggleButtonAppearance,
-  ToggleButtonSize,
-  ToggleButtonShape,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface ToggleButtonProps extends FluentProps<FluentElement> {
-  disabled?: boolean;
-  disabledFocusable?: boolean;
-  appearance?: ToggleButtonAppearance;
-  iconOnly?: boolean;
-  size?: ToggleButtonSize;
-  shape?: ToggleButtonShape;
-  value?: string;
+export type ToggleButtonElement = FluentElement & WithChildrenAndSlots<"">;
+export interface ToggleButtonElementProps extends Partial<ToggleButtonElement> {
+  ref?: Ref<ToggleButtonElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-toggle-button": ToggleButtonProps;
+      "fluent-toggle-button": ToggleButtonElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const ToggleButton = forwardRef<FluentElement, ToggleButtonProps>(
-  (props, ref) => {
-    return <fluent-toggle-button {...props} ref={ref} />;
-  }
-);
+export const ToggleButton = forwardRef<
+  ToggleButtonElement,
+  ToggleButtonElementProps
+>((props, ref) => {
+  return <fluent-toggle-button {...props} ref={ref} />;
+});

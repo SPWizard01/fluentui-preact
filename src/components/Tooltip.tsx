@@ -1,29 +1,29 @@
 import {
   FluentDesignSystem,
   TooltipDefinition as FluentElementDefinition,
-  TooltipPositioningOption,
   type Tooltip as FluentElement,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface TooltipProps extends FluentProps<FluentElement> {
-  id?: string;
-  anchor?: string;
-  delay?: number;
-  positioning?: TooltipPositioningOption;
+export type TooltipElement = FluentElement & WithChildrenAndSlots<"">;
+export interface TooltipElementProps extends Partial<TooltipElement> {
+  ref?: Ref<TooltipElement>;
 }
 
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-tooltip": TooltipProps;
+      "fluent-tooltip": TooltipElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const Tooltip = forwardRef<FluentElement, TooltipProps>((props, ref) => {
-  return <fluent-tooltip {...props} ref={ref} />;
-});
+export const Tooltip = forwardRef<TooltipElement, TooltipElementProps>(
+  (props, ref) => {
+    return <fluent-tooltip {...props} ref={ref} />;
+  }
+);

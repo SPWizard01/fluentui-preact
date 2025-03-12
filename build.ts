@@ -3,7 +3,7 @@ import { entryPoints } from "./entryPoints";
 await $`rm -rf dist`;
 const result = await build({
     entrypoints: entryPoints,
-    sourcemap: "linked",
+    sourcemap: "none",
     outdir: "./dist",
     naming: {
         entry: "[name].[ext]",
@@ -22,7 +22,7 @@ const result = await build({
 
 // 
 
-await $`tsc --noEmit -p ./tsconfig.json`
+await $`tsc -p ./tsconfig.json`
 function printOutput(result: BuildOutput) {
     console.table(result.outputs.map((bldArt) => {
         return {

@@ -1,26 +1,29 @@
 import {
   DialogDefinition,
   FluentDesignSystem,
-  type DialogType,
   type Dialog as FluentElement,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
+import type { Ref } from "preact";
 
-export interface DialogProps extends FluentProps<FluentElement> {
-  type?: DialogType;
+export type DialogElement = FluentElement & WithChildrenAndSlots;
+export interface DialogElementProps extends Partial<DialogElement> {
+  ref?: Ref<DialogElement>;
 }
 
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-dialog": DialogProps;
+      "fluent-dialog": DialogElementProps;
     }
   }
 }
 
 DialogDefinition.define(FluentDesignSystem.registry);
 
-export const Dialog = forwardRef<FluentElement, DialogProps>((props, ref) => {
-  return <fluent-dialog {...props} ref={ref} />;
-});
+export const Dialog = forwardRef<DialogElement, DialogElementProps>(
+  (props, refObject: any) => {
+    return <fluent-dialog {...props} ref={refObject} />;
+  }
+);

@@ -1,33 +1,28 @@
 import {
-  DividerAlignContent,
-  DividerAppearance,
   DividerDefinition,
-  DividerOrientation,
-  DividerRole,
   FluentDesignSystem,
   type Divider as FluentElement,
 } from "@fluentui/web-components";
-import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
 
-export interface DividerProps extends FluentProps<FluentElement> {
-  alignContent?: DividerAlignContent;
-  appearance?: DividerAppearance;
-  role?: DividerRole;
-  inset?: boolean;
-  orientation?: DividerOrientation;
+import { forwardRef } from "preact/compat";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
+
+export type DividerElement = FluentElement & WithChildrenAndSlots<"">;
+export interface DividerElementProps extends Partial<DividerElement> {
+  ref?: Ref<DividerElement>;
 }
 
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-divider": DividerProps;
+      "fluent-divider": DividerElementProps;
     }
   }
 }
 
 DividerDefinition.define(FluentDesignSystem.registry);
 
-export const Divider = forwardRef<FluentElement, DividerProps>((props, ref) => {
+export const Divider = forwardRef<DividerElement, DividerElementProps>((props, ref) => {
   return <fluent-divider {...props} ref={ref} />;
 });

@@ -6,23 +6,25 @@ import {
   type Spinner as FluentElement,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface SpinnerProps extends FluentProps<FluentElement> {
-  appearance?: SpinnerAppearance;
-  size?: SpinnerSize;
+export type SpinnerElement = FluentElement & WithChildrenAndSlots<"">;
+export interface SpinnerElementProps extends Partial<SpinnerElement> {
+  ref?: Ref<SpinnerElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-spinner": SpinnerProps;
+      "fluent-spinner": SpinnerElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const Spinner = forwardRef<FluentElement, SpinnerProps>((props, ref) => {
-  return <fluent-spinner {...props} ref={ref} />;
-});
+export const Spinner = forwardRef<SpinnerElement, SpinnerElementProps>(
+  (props, ref) => {
+    return <fluent-spinner {...props} ref={ref} />;
+  }
+);

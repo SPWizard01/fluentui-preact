@@ -2,33 +2,28 @@ import {
   FluentDesignSystem,
   ProgressBarDefinition as FluentElementDefinition,
   type ProgressBar as FluentElement,
-  ProgressBarShape,
-  ProgressBarThickness,
-  ProgressBarValidationState,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface ProgressBarProps extends FluentProps<FluentElement> {
-  min?: number;
-  max?: number;
-  shape?: ProgressBarShape;
-  thickness?: ProgressBarThickness;
-  validationState?: ProgressBarValidationState;
-  value?: number;
+export type ProgressBarElement = FluentElement & WithChildrenAndSlots<"">;
+export interface ProgressBarElementProps extends Partial<ProgressBarElement> {
+  ref?: Ref<ProgressBarElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-progress-bar": ProgressBarProps;
+      "fluent-progress-bar": ProgressBarElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const ProgressBar = forwardRef<FluentElement, ProgressBarProps>((props, ref) => {
+export const ProgressBar = forwardRef<
+  ProgressBarElement,
+  ProgressBarElementProps
+>((props, ref) => {
   return <fluent-progress-bar {...props} ref={ref} />;
 });
-

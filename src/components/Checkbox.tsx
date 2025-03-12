@@ -1,37 +1,29 @@
 import {
   CheckboxDefinition,
-  CheckboxShape,
-  CheckboxSize,
   FluentDesignSystem,
   type Checkbox as FluentElement,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface CheckboxProps
-  extends FluentProps<FluentElement, "start" | "end"> {
-  disabled?: boolean;
-  autofocus?: boolean;
-  checked?: boolean;
-  indeterminate?: boolean;
-  name?: string;
-  required?: boolean;
-  value?: string;
-  shape?: CheckboxShape;
-  size?: CheckboxSize;
+export type CheckboxElement = FluentElement & WithChildrenAndSlots<"start" | "end">;
+export interface CheckboxElementProps extends Partial<CheckboxElement> {
+  ref?: Ref<CheckboxElement>;
+  children?: never;
 }
 
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-checkbox": CheckboxProps;
+      "fluent-checkbox": CheckboxElementProps;
     }
   }
 }
 
 CheckboxDefinition.define(FluentDesignSystem.registry);
 
-export const Checkbox = forwardRef<FluentElement, CheckboxProps>(
+export const Checkbox = forwardRef<CheckboxElement, CheckboxElementProps>(
   (props, ref) => {
     return <fluent-checkbox {...props} ref={ref} />;
   }

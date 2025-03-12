@@ -1,32 +1,28 @@
 import {
   accordionDefinition,
   FluentDesignSystem,
-  AccordionExpandMode,
   type Accordion as FluentElement,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface AccordionProps extends FluentProps<FluentElement, "heading"> {
-  /**
-   * Controls the expand mode of the Accordion, either allowing single or multiple item expansion.
-   * `single` `multi`
-   * @default `multi`
-   */
-  "expand-mode"?: AccordionExpandMode;
+export type AccordionElement = FluentElement & WithChildrenAndSlots<"heading">;
+export interface AccordionElementProps extends Partial<AccordionElement> {
+  ref?: Ref<AccordionElement>;
 }
 
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-accordion": AccordionProps;
+      "fluent-accordion": AccordionElementProps;
     }
   }
 }
 
 accordionDefinition.define(FluentDesignSystem.registry);
 
-export const Accordion = forwardRef<FluentElement, AccordionProps>(
+export const Accordion = forwardRef<AccordionElement, AccordionElementProps>(
   (props, ref) => {
     return <fluent-accordion {...props} ref={ref} />;
   }

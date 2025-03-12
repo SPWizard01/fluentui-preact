@@ -2,33 +2,25 @@ import {
   LinkDefinition,
   FluentDesignSystem,
   type Link as FluentElement,
-  LinkTarget,
-  LinkAppearance,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface LinkProps extends FluentProps<FluentElement> {
-  href?: string;
-  hreflang?: string;
-  referrerpolicy?: string;
-  rel?: string;
-  type?: string;
-  target?: LinkTarget;
-  inline?: string;
-  appearance?: LinkAppearance;
+export type LinkElement = FluentElement & WithChildrenAndSlots<"">;
+export interface LinkElementProps extends Partial<LinkElement> {
+  ref?: Ref<LinkElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-link": LinkProps;
+      "fluent-link": LinkElementProps;
     }
   }
 }
 
 LinkDefinition.define(FluentDesignSystem.registry);
 
-export const Link = forwardRef<FluentElement, LinkProps>((props, ref) => {
+export const Link = forwardRef<LinkElement, LinkElementProps>((props, ref) => {
   return <fluent-link {...props} ref={ref} />;
 });

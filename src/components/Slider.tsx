@@ -1,33 +1,28 @@
 import {
   FluentDesignSystem,
   SliderDefinition as FluentElementDefinition,
-  SliderOrientation,
-  SliderSize,
   type Slider as FluentElement,
 } from "@fluentui/web-components";
 import { forwardRef } from "preact/compat";
-import type { FluentProps } from "../utility/helpertypes";
+import type { Ref } from "preact";
+import type { WithChildrenAndSlots } from "../utility/helpertypes";
 
-export interface SliderProps extends FluentProps<FluentElement> {
-  disabled?: boolean;
-  min?: number;
-  max?: number;
-  value?: number;
-  step?: number;
-  size?: SliderSize;
-  orientation?: SliderOrientation;
+export type SliderElement = FluentElement & WithChildrenAndSlots<"">;
+export interface SliderElementProps extends Partial<SliderElement> {
+  ref?: Ref<SliderElement>;
 }
-
 declare module "preact" {
   namespace JSX {
     interface IntrinsicElements {
-      "fluent-slider": SliderProps;
+      "fluent-slider": SliderElementProps;
     }
   }
 }
 
 FluentElementDefinition.define(FluentDesignSystem.registry);
 
-export const Slider = forwardRef<FluentElement, SliderProps>((props, ref) => {
-  return <fluent-slider {...props} ref={ref} />;
-});
+export const Slider = forwardRef<SliderElement, SliderElementProps>(
+  (props, ref) => {
+    return <fluent-slider {...props} ref={ref} />;
+  }
+);
