@@ -1,8 +1,7 @@
 import { $, build, type BuildOutput } from "bun";
-import { entryPoints } from "./entryPoints";
 await $`rm -rf dist`;
 const result = await build({
-  entrypoints: entryPoints,
+  entrypoints: ["./showcase/index.tsx"],
   sourcemap: "none",
   outdir: "./dist",
   naming: {
@@ -16,12 +15,8 @@ const result = await build({
   },
   drop: ["console.debug", "console.log"],
   minify: false,
-  external: ["preact", "@fluentui/web-components", "@fluentui/tokens"],
 });
 
-//
-
-await $`tsc -p ./tsconfig.json`;
 function printOutput(result: BuildOutput) {
   console.table(
     result.outputs.map((bldArt) => {
