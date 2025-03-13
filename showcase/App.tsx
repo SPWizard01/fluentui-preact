@@ -1,26 +1,26 @@
-import { Checkbox } from "./components/Checkbox";
-import { Dialog, type DialogElement } from "./components/Dialog";
-import { DialogBody } from "./components/DialogBody";
-import { ThemeProvider } from "./components/ThemeProvider";
+import React from "preact";
+import { Checkbox } from "../src/components/Checkbox";
+import { Dialog, type DialogElement } from "../src/components/Dialog";
+import { DialogBody } from "../src/components/DialogBody";
+import { ThemeProvider } from "../src/components/ThemeProvider";
 import { useRef } from "preact/hooks";
 import { teamsLightTheme } from "@fluentui/tokens";
-import { Accordion } from "./components/Accordion";
-import { AccordionItem } from "./components/AccordionItem";
-import { TextArea, type TextAreaElement } from "./components/TextArea";
-import { ToggleButton } from "./components/ToggleButton";
-import { Avatar } from "./components/Avatar";
-import { AnchorButton } from "./components/AnchorButton";
-import { Badge } from "./components/Badge";
-import { Button } from "./components/Button";
-import { CompoundButton } from "./components/CompoundButton";
-
+import { Accordion } from "../src/components/Accordion";
+import { AccordionItem } from "../src/components/AccordionItem";
+import { TextArea, type TextAreaElement } from "../src/components/TextArea";
+import { ToggleButton } from "../src/components/ToggleButton";
+import { Avatar } from "../src/components/Avatar";
+import { AnchorButton } from "../src/components/AnchorButton";
+import { Badge } from "../src/components/Badge";
+import { Button } from "../src/components/Button";
+import { CompoundButton } from "../src/components/CompoundButton";
 export function App() {
   const dref = useRef<DialogElement>(null);
   const dd = useRef<TextAreaElement>(null);
   return (
     <ThemeProvider theme={teamsLightTheme}>
-      <Accordion expand-mode="single">
-        <AccordionItem size="extra-large" disabled={true}>
+      <Accordion expandmode="single">
+        <AccordionItem size="extra-large">
           <div slot="heading">Heading</div>
           <div>Content</div>
         </AccordionItem>

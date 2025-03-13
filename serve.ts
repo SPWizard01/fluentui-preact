@@ -1,34 +1,14 @@
-import { bunHotReloadPlugin, startBunDevServer } from "bun-dev-server";
-
-startBunDevServer({
-    buildConfig: {
-        entrypoints: ["./src/index.tsx"],
-        naming: {
-            entry: "[name].[ext]",
-        },
-        sourcemap: "linked",
-        outdir: "./dist",
-        target: "browser",
-        format: "esm",
-        define: {
-            "BUILD_DATE": JSON.stringify(new Date().toISOString()),
-        },
-
-        plugins: [
-            bunHotReloadPlugin({ port: 33355, secure: true }),
-        ]
+import index from "./showcase/index.html";
+const bunServer = Bun.serve({
+    development: true,
+    routes: {
+        "/": index,
     },
-    port: 33366,
-    watchDir: "./src",
-    enableTSC: true,
-    hotReload: "plugin",
-    writeManifest: false,
-    cleanServePath: true,
+    port: 44301,
     tls: {
-        certFile: "./serve_cert.pem",
-        keyFile: "./serve_key.pem",
-    },
-    logRequests: true,
-    reloadOnChange: true,
-    watchDelay: 2000,
-}, import.meta)
+        rejectUnauthorized: false,
+        key: Bun.file("./serve_key.pem"),
+        cert: Bun.file("./serve_cert.pem"),
+    }
+})
+console.log("Server started at", bunServer.url.href);
